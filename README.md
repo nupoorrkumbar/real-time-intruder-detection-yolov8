@@ -31,7 +31,7 @@ The solution includes a **Flask-based GUI** that streams live video, captures in
 ### Model Performance  
 - Achieved **mAP50 = 0.995** and **mAP50-95 = 0.831** by epoch 35, showing strong detection performance.  
 
-### My contribution - Digital Image Processing  
+### **My contribution** - Digital Image Processing  
 Applied seven filtering techniques to intruder snapshots to maintain clarity under different lighting and noise conditions:  
 - Bicubic Interpolation  
 - Median Filtering  
@@ -83,6 +83,6 @@ Applied seven filtering techniques to intruder snapshots to maintain clarity und
 ---
 
 ## Acknowledgments  
-Developed as part of the **Digital Image Processing (EDS6397)** course project at the **University of Houston**, under the guidance of **Dr. Lucy Nwosu** and TA **Mohit Bushan Varma**.  
+Developed as part of the **Digital Image Processing (EDS6397)** course project at the **University of Houston**, under the guidance of **Dr. Lucy Nwosu** 
 
 ---

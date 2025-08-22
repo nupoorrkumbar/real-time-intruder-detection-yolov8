@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TriNetra</title>
+    <style>
+        .header_container {
+            display: flex;
+            align-items: center; /* Center vertically */
+            background-color: #06cea2;
+            height: fit-content;
+        }
+
+        .logo {
+            margin-right: 10px; /* Add some spacing between logo and title */
+            margin-left: 12px;
+        }
+
+        .logo img {
+            height: 200px;
+            width: 140px; 
+        }
+
+        
+        .project_title {
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            align-content: center;
+            text-align: center;
+            
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; 
+        }
+        .container_stream {
+            display: flex;
+            margin-top: 2px;
+            margin-left: 1%;
+            text-align: center;
+            font-size: 15px;
+            gap: 2%;
+        }
+
+        #video_feed {
+            margin-left: 2px;
+            border: 3px solid #000000; /* Black border */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Updated shadow */
+        }
+        #recent_image {
+            margin-left: 40px;
+            border: 3px solid #ca0000;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .image-container {
+            margin-top: 2px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-size: 15px;
+        }
+        #log_title {
+            text-align: left;
+            margin-top: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 2px solid #000000;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header_container">
+        <div class="logo">
+            <img src="{{ url_for('get_logo') }}" alt="Your Logo" style="height: 50px; margin-right: 10px;">
+        </div>
+        <div class="project_title">
+            <h1>Surveillance and security system using real-time multiple object recognition and tracking</h1>
+        </div>
+    </div>
+    <div class="container_stream">
+        <div>
+            <h2>Live Video Stream</h2>
+            <img id="video_feed" src="{{ url_for('video_feed') }}" width="854" height="480">
+        </div>
+        <div>
+            <h2>Recent Intruder Image</h2>
+            <img id="get_recent_image" src="{{ url_for('get_recent_image') }}" width="420" height="480">
+        </div>
+    </div>
+    <div id="log_title"><h1>Processed Images of Intruder</h1></div>
+    <table id="intruderLog">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Actual Image</th>
+                <th>Median Filtered</th>
+                <th>HPF</th>
+                <th>Histogram Equalization</th>
+                <th>Edge Detection</th>
+                <th>Adaptive Mean Thresholding</th>
+                <th>OTSU Thresholding</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <b>1</b>
+                </td>
+                <td>
+                    <img id="image_original" width="120" height="120" class="image-container">
+                </td>
+                <td>
+                    <img id="image_medianfiltered" width="120" height="120" class="image-container">
+                </td>
+                <td>
+                    <img id="image_highpass" width="120" height="120" class="image-container">
+                </td>
+                <td>
+                    <img id="image_histogram" width="120" height="120" class="image-container">
+                </td>
+                <td>
+                    <img id="image_edgedetection" width="120" height="120" class="image-container">
+                </td>
+                <td>
+                    <img id="image_thresholding1" width="120" height="120" class="image-container">
+                </td>
+                <td>
+                    <img id="image_thresholding2" width="120" height="120" class="image-container">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- JavaScript code here -->
+    <script>
+        // Function to reload each image every 5 seconds
+        function reloadImages() {
+            var image_original = document.getElementById('image_original');
+            if (image_original) {
+                image_original.src = "{{ url_for('get_original_image') }}";
+            }
+
+            var image_lowpass = document.getElementById('image_medianfiltered');
+            if (image_lowpass) {
+                image_lowpass.src = "{{ url_for('get_median_filtered_image') }}";
+            }
+
+            var image_highpass = document.getElementById('image_highpass');
+            if (image_highpass) {
+                image_highpass.src = "{{ url_for('get_highpass_image') }}";
+            }
+
+            var image_histogram = document.getElementById('image_histogram');
+            if (image_histogram) {
+                image_histogram.src = "{{ url_for('get_histogram_image') }}";
+            }
+
+            var image_edgedetection = document.getElementById('image_edgedetection');
+            if (image_edgedetection) {
+                image_edgedetection.src = "{{ url_for('get_edgedetection_image') }}";
+            }
+
+            var image_thresholding1 = document.getElementById('image_thresholding1');
+            if (image_thresholding1) {
+                image_thresholding1.src = "{{ url_for('get_thresholding1_image') }}";
+            }
+
+            var image_thresholding2 = document.getElementById('image_thresholding2');
+            if (image_thresholding2) {
+                image_thresholding2.src = "{{ url_for('get_thresholding2_image') }}";
+            }
+        }
+
+        // Set interval to reload each image every 5 seconds
+        setInterval(reloadImages, 5000);
+    </script>
+</body>
+</html>
